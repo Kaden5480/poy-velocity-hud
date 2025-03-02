@@ -7,6 +7,8 @@ A
 [Peaks of Yore](https://store.steampowered.com/app/2236070/)
 which adds a velocity HUD for the pocketwatch.
 
+![Velocity HUD Demo](assets/demo.gif)
+
 # Overview
 - [Installing](#installing)
     - [BepInEx](#bepinex)
