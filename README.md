@@ -7,6 +7,8 @@ A
 [Peaks of Yore](https://store.steampowered.com/app/2236070/)
 which adds a velocity HUD for the pocketwatch.
 
+The HUD can be enabled/disabled from the pocketwatch by pressing the middle mouse button.
+
 ![Velocity HUD Demo](assets/demo.gif)
 
 # Overview
