@@ -59,6 +59,8 @@ namespace VelocityHUD {
 
             config._toggleKeybind = general.CreateEntry<string>("toggleKeybind", defaultToggleKeybind.ToString());
             config.showUI = general.CreateEntry<bool>("showUI", false);
+
+            CommonAwake();
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName) {
