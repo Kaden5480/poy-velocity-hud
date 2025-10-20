@@ -7,6 +7,7 @@ namespace VelocityHUD {
     public class Config {
         public ConfigEntry<string> _toggleKeybind;
         public ConfigEntry<bool> showUI;
+        public ConfigEntry<bool> showExtended;
 
         public KeyCode toggleKeybind {
             get => (KeyCode) Enum.Parse(typeof(KeyCode), _toggleKeybind.Value);

@@ -8,6 +8,7 @@ namespace VelocityHUD.UI {
         private GameObject rootObj;
         private TextComponent compMax;
         private TextComponent compCurrent;
+        private TextComponent compExtended;
 
         private Cache.Cache cache {
             get => Plugin.cache;
@@ -37,6 +38,24 @@ namespace VelocityHUD.UI {
             // Current and max objects
             compMax = new TextComponent(rootObj, "Max Velocity");
             compCurrent = new TextComponent(rootObj, "Current Velocity");
+
+            if (config.showExtended.Value == true) {
+                compExtended = new TextComponent(rootObj, "Current Extended");
+                RectTransform transform = compExtended.transform;
+
+                Vector2 oldDelta = transform.sizeDelta;
+                Vector3 oldPosition = transform.localPosition;
+
+                transform.sizeDelta = new Vector2(
+                    2 * oldDelta.x,
+                    oldDelta.y
+                );
+                transform.localPosition =  new Vector3(
+                    oldPosition.x + 140,
+                    oldPosition.y,
+                    oldPosition.z
+                );
+            }
 
             // Hide by default
             rootObj.SetActive(false);
@@ -96,6 +115,15 @@ namespace VelocityHUD.UI {
 
             compMax.SetText($"Max: {FormatVelocity(tracker.max)}");
             compCurrent.SetText($"Current: {FormatVelocity(tracker.current.magnitude)}");
+
+            if (compExtended != null) {
+                compExtended.SetEnabled(!TimeAttack.receivingScore);
+
+                string x = FormatVelocity(tracker.current.x);
+                string y = FormatVelocity(tracker.current.y);
+                string z = FormatVelocity(tracker.current.z);
+                compExtended.SetText($"Extended: ({x}, {y}, {z})");
+            }
         }
     }
 }

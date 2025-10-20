@@ -12,6 +12,7 @@ namespace VelocityHUD.UI {
         private const float offsetIncrement = 160f;
 
         private GameObject obj;
+        public RectTransform transform { get; private set; }
         private Text text;
 
         /**
@@ -23,8 +24,8 @@ namespace VelocityHUD.UI {
          */
         public TextComponent(GameObject parent, string name) {
             obj = new GameObject(name);
-            RectTransform transform = obj.AddComponent<RectTransform>();
 
+            transform = obj.AddComponent<RectTransform>();
             transform.SetParent(parent.transform);
             transform.localPosition = new Vector3(offset, 0f, 0f);
             offset += offsetIncrement;

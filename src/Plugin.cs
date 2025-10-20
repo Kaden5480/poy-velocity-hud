@@ -31,6 +31,10 @@ namespace VelocityHUD {
                 "General", "showUI", false,
                 "Whether to show the UI"
             );
+            config.showExtended = Config.Bind(
+                "General", "showExtended", false,
+                "Whether to show extended velocity info"
+            );
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
