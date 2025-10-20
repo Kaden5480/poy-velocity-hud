@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 namespace VelocityHUD.UI {
     public class UI {
+        private Vector3 normalPosition = new Vector3(-50f, -10f, 0f);
+        private Vector3 routingPosition = new Vector3(-110f, -10f, 0f);
+
         private GameObject rootObj;
+        private RectTransform rootTransform;
         private TextComponent compMax;
         private TextComponent compCurrent;
         private TextComponent compExtended;
@@ -30,9 +34,9 @@ namespace VelocityHUD.UI {
         public void MakeUI() {
             // Root object
             rootObj = new GameObject("Velocity HUD");
-            RectTransform rootTransform = rootObj.AddComponent<RectTransform>();
+            rootTransform = rootObj.AddComponent<RectTransform>();
             rootTransform.SetParent(cache.ui.obj.transform);
-            rootTransform.localPosition = new Vector3(-50, -10f, 0f);
+            rootTransform.localPosition = normalPosition;
             rootTransform.sizeDelta = new Vector2(600f, 70f);
 
             // Current and max objects
@@ -89,9 +93,14 @@ namespace VelocityHUD.UI {
          * <returns>Whether the UI should be shown</returns>
          */
         private bool ShouldShow() {
-            return config.showUI.Value
-                && cache.timeAttack.watchReady
-                && cache.ui.holdsObj.activeSelf;
+            if (config.showUI.Value == false
+                || cache.timeAttack.watchReady == false
+            ) {
+                return false;
+            }
+
+            return cache.routingFlag.currentlyUsingFlag == true
+                || cache.ui.holdsObj.activeSelf == true;
         }
 
         /**
@@ -105,13 +114,19 @@ namespace VelocityHUD.UI {
             }
 
             rootObj.SetActive(ShouldShow());
-
-            compMax.SetEnabled(true);
-            compCurrent.SetEnabled(!TimeAttack.receivingScore);
-
             if (ShouldShow() == false) {
                 return;
             }
+
+            if (cache.routingFlag.currentlyUsingFlag == true) {
+                rootTransform.localPosition = routingPosition;
+            }
+            else {
+                rootTransform.localPosition = normalPosition;
+            }
+
+            compMax.SetEnabled(true);
+            compCurrent.SetEnabled(!TimeAttack.receivingScore);
 
             compMax.SetText($"Max: {FormatVelocity(tracker.max)}");
             compCurrent.SetText($"Current: {FormatVelocity(tracker.current.magnitude)}");

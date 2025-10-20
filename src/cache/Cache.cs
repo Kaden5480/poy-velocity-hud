@@ -4,6 +4,7 @@ namespace VelocityHUD.Cache {
     public class Cache {
         public PlayerMove playerMove   { get; private set; }
         public Rigidbody playerRb      { get; private set; }
+        public RoutingFlag routingFlag { get; private set; }
         public TimeAttack timeAttack   { get; private set; }
 
         public TimeUI ui               { get; private set; }
@@ -19,6 +20,7 @@ namespace VelocityHUD.Cache {
                 playerRb = playerMove.rigid;
             }
 
+            routingFlag = GameObject.FindObjectOfType<RoutingFlag>();
             timeAttack = GameObject.FindObjectOfType<TimeAttack>();
             ui = new TimeUI();
         }
@@ -32,6 +34,7 @@ namespace VelocityHUD.Cache {
         public bool IsComplete() {
             return playerMove != null
                 && playerRb != null
+                && routingFlag != null
                 && timeAttack != null
                 && ui != null
                 && ui.IsComplete() == true;
@@ -45,6 +48,7 @@ namespace VelocityHUD.Cache {
         public void Clear() {
             playerMove = null;
             playerRb = null;
+            routingFlag = null;
             timeAttack = null;
             ui = null;
         }
