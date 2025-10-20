@@ -1,0 +1,63 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace VelocityHUD.UI {
+    public class TextComponent {
+        private Cache.Cache cache {
+            get => Plugin.cache;
+        }
+
+        private const int fontSize = 25;
+        public static float offset = 0f;
+        private const float offsetIncrement = 160f;
+
+        private GameObject obj;
+        private Text text;
+
+        /**
+         * <summary>
+         * Constructs a new TextComponent.
+         * </summary>
+         * <param name="parent">The parent object to use</param>
+         * <param name="name">The name of this object</param>
+         */
+        public TextComponent(GameObject parent, string name) {
+            obj = new GameObject(name);
+            RectTransform transform = obj.AddComponent<RectTransform>();
+
+            transform.SetParent(parent.transform);
+            transform.localPosition = new Vector3(offset, 0f, 0f);
+            offset += offsetIncrement;
+            transform.sizeDelta = new Vector2(200f, 70f);
+
+            text = obj.AddComponent<Text>();
+            text.font = cache.ui.font;
+            text.fontSize = fontSize;
+
+            Outline outline = obj.AddComponent<Outline>();
+            outline.effectColor = cache.ui.outline.effectColor;
+            outline.effectDistance = cache.ui.outline.effectDistance;
+        }
+
+        /**
+         * <summary>
+         * Changes whether this component is enabled/disabled.
+         * </summary>
+         * <param name="enabled">Whether to enable/disable this component</param>
+         */
+        public void SetEnabled(bool enabled) {
+            obj.SetActive(enabled);
+        }
+
+        /**
+         * <summary>
+         * Allows changing the text this component displays.
+         * </summary>
+         * <param name="text">The text to set</param>
+         */
+        public void SetText(string text) {
+            this.text.text = text;
+        }
+    }
+}
+
