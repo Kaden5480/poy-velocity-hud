@@ -125,6 +125,8 @@ namespace VelocityHUD.UI {
                 rootTransform.localPosition = normalPosition;
             }
 
+            rootObj.transform.localScale = Vector2.one;
+
             compMax.SetEnabled(true);
             compCurrent.SetEnabled(!TimeAttack.receivingScore);
 
